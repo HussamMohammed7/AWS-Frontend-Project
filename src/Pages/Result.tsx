@@ -28,7 +28,7 @@ const ResultContent: React.FC<{
   useEffect(() => {
     const generateInterviewAdvice = async () => {
       try {
-        const apiKey = "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"; // Replace with your OpenAI API key
+        const apiKey = "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"; // Replace with your OpenAI API key
         const response = await axios.post(
           "https://api.openai.com/v1/chat/completions",
           {
