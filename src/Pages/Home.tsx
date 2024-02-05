@@ -10,6 +10,8 @@ import { toast } from 'react-toastify'; // Import toast from react-toastify
 import 'react-toastify/dist/ReactToastify.css';
 import { IoClose } from "react-icons/io5";
 
+// ... Existing imports ...
+
 const Home: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [company, setCompany] = useState('');
@@ -27,11 +29,11 @@ const Home: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = async () => {
+    // Handle the form submission here.
     setIsLoading(true);
 
-    if (cvFile && company && jobTitle ) {
+    if (cvFile && company && jobTitle) {
       try {
         const formData = new FormData();
         formData.append('docxFile', cvFile);
@@ -75,11 +77,11 @@ const Home: React.FC = () => {
   const handleGetStartedClick = () => {
     setShowForm(true);
   };
+
   return (
     <main className="w-screen h-screen relative ">
       <div className="flex items-center w-full h-full bg-cover bg-center" style={{ backgroundImage: "url('https://files.123freevectors.com/wp-content/original/168114-black-and-white-dot-background-image.jpg')" }}>
         <div className="flex justify-between items-start w-full pl-20 md:pl-40 pb-56 md:pb-20 z-[10]">
-          
           <Reveal>
             <h1 className="text-[50px]  font-semibold">
               Hello Welcome to
@@ -96,57 +98,53 @@ const Home: React.FC = () => {
           </Reveal>
           {!showForm ? (
             <Reveal>
-              <button onClick={handleGetStartedClick} className="text-[30px] mt-[11rem] mr-[15rem] p-4  bg-[#330033] text-white rounded hover:bg-[#997F99]">
+              <button onClick={handleGetStartedClick} className="text-[30px] mt-[11rem] mr-[15rem] p-4  bg-[#330033] text-white rounded hover-bg-[#997F99]">
                 Get Started
               </button>
             </Reveal>
           ) : (
-
             <div className="absolute w-[40rem] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-lg shadow-lg z-[20]">
-              <span className=" text-2xl absolute top-5 right-5 cursor-pointer text-[#990000] p-3"
-              onClick={() => setShowForm(false)}> 
-              <IoClose />
-
+              <span className=" text-2xl absolute top-5 right-5 cursor-pointer text-[#990000] p-3" onClick={() => setShowForm(false)}> 
+                <IoClose />
               </span>
               <h2 className="text-2xl font-bold mb-4">Enter your details</h2>
               <Reveal>
-
-              <form onSubmit={handleSubmit} className="space-y-4 w-[35rem]">
-                <input
-                  className="block w-full p-2 border rounded"
-                  type="text"
-                  placeholder="Company Name"
-                  value={company}
-                  onChange={(e) => setCompany(e.target.value)}
-                />
-                <input
-                  className="block w-full p-2 border rounded"
-                  type="text"
-                  placeholder="Job Title"
-                  value={jobTitle}
-                  onChange={(e) => setJobTitle(e.target.value)}
-                />
-                <textarea
-                  className="block w-full p-2 border rounded"
-                  placeholder="Job Description"
-                  value={jobDescription}
-                  onChange={(e) => setJobDescription(e.target.value)}
-                />
-                <input
-                  type="file"
-                  accept=".docx"
-                  onChange={handleFileChange}
-                  className="block w-full p-2 text-sm text-gray-500"
-                />
-                <button
-                  className="font-bold py-2 px-4 rounded  bg-[#330033] text-white rounded hover:bg-[#997F99]"
-                  disabled={isLoading}
-                >
-                  {isLoading ? 'Loading...' : 'Submit'}
-                </button>
-              </form>
+                <div className="space-y-4 w-[35rem]">
+                  <input
+                    className="block w-full p-2 border rounded"
+                    type="text"
+                    placeholder="Company Name"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                  />
+                  <input
+                    className="block w-full p-2 border rounded"
+                    type="text"
+                    placeholder="Job Title"
+                    value={jobTitle}
+                    onChange={(e) => setJobTitle(e.target.value)}
+                  />
+                  <textarea
+                    className="block w-full p-2 border rounded"
+                    placeholder="Job Description"
+                    value={jobDescription}
+                    onChange={(e) => setJobDescription(e.target.value)}
+                  />
+                  <input
+                    type="file"
+                    accept=".docx"
+                    onChange={handleFileChange}
+                    className="block w-full p-2 text-sm text-gray-500"
+                  />
+                  <button
+                    className="font-bold py-2 px-4 rounded  bg-[#330033] text-white rounded hover-bg-[#997F99]"
+                    onClick={handleSubmit} // Handle the form submission here
+                    disabled={isLoading}
+                  >
+                    {isLoading ? 'Loading...' : 'Submit'}
+                  </button>
+                </div>
               </Reveal>
-
               {isLoading && <p>Loading...</p>}
               {parsedText && (
                 <div className="mt-4">
@@ -159,7 +157,6 @@ const Home: React.FC = () => {
                 </div>
               )}
             </div>
-
           )}
         </div>
       </div>
